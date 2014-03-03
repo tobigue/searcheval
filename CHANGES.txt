@@ -1,0 +1,8 @@
+searcheval Changelog
+====================
+
+
+v0.1 - 2014-03-03
+-----------------
+
+* Initial implementation of metrics
