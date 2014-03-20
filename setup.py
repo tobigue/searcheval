@@ -12,6 +12,6 @@ setup(
     description='Library implementing metrics and tools for the evaluation of search results (rankings)',
     long_description=open('README.rst').read(),
     install_requires=[
-        "numpy"
+        #  "numpy" (see http://docs.scipy.org/doc/numpy/user/install.html)
     ],
 )

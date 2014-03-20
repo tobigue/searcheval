@@ -5,6 +5,12 @@ searcheval
 Library implementing metrics and tools for the evaluation of search results (rankings).
 
 
+Requirements
+============
+
+* numpy (see http://docs.scipy.org/doc/numpy/user/install.html)
+
+
 Tests
 =====
 
