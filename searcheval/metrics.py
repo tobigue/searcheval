@@ -1,5 +1,13 @@
 from __future__ import division
-import numpy as np
+from math import log
+from searcheval.helpers import cumsum, divide
+
+
+try:
+    from itertools import izip as zip
+    range = xrange
+except NameError:
+    pass
 
 
 def mean(vector):
@@ -78,12 +86,12 @@ def precision_vector(relevance_vector):
 
     Returns:
     --------
-        precision_vector : np.array
+        precision_vector : list
             The precision vector for the given relevance vector.
     """
-    cumulated_relevance_vector = np.cumsum(relevance_vector)
-    rank_vector = np.arange(1, len(relevance_vector) + 1)
-    return cumulated_relevance_vector / rank_vector
+    cumulated_relevance_vector = cumsum(relevance_vector)
+    rank_vector = range(1, len(relevance_vector) + 1)
+    return divide(cumulated_relevance_vector, rank_vector)
 
 
 def avg_prec(relevance_vector):
@@ -102,7 +110,8 @@ def avg_prec(relevance_vector):
             The average precision of the given relevance vector.
     """
     P_vec = precision_vector(relevance_vector)
-    return sum(np.array(relevance_vector) * P_vec) / len(relevance_vector)
+    P_sum = sum([p * r for (p, r) in zip(P_vec, relevance_vector)])
+    return P_sum / len(relevance_vector)
 
 
 def r_prec(relevance_vector, recall_base):
@@ -203,10 +212,10 @@ def recall_vector(relevance_vector, recall_base):
 
     Returns:
     --------
-        recall_vector : np.array
+        recall_vector : list
             The recall vector for the given relevance vector.
     """
-    return np.cumsum(relevance_vector) / recall_base
+    return [cr / recall_base for cr in cumsum(relevance_vector)]
 
 
 def nDCG(gain_vector, ideal_gain_vector):
@@ -279,21 +288,21 @@ def nDCG_vector(gain_vector, ideal_gain_vector):
 
     Returns:
     --------
-        nDCG_vector : np.array
+        nDCG_vector : list
             The nDCG value for every position of the given gain vector.
     """
     # fit ideal gain vector in size
-    I = np.zeros(len(gain_vector))
+    I = [0] * len(gain_vector)
     fitted_ideal_gain_vector = ideal_gain_vector[0:len(gain_vector)]
     I[0:len(fitted_ideal_gain_vector)] = fitted_ideal_gain_vector
     # make log vector (uses log_2(rank+1) version of DCG)
-    log_vec = np.log2(np.arange(2, len(gain_vector) + 2))
+    log_vec = [log(x, 2) for x in range(2, len(gain_vector) + 2)]
     # discount
-    DG = gain_vector / log_vec
-    DI = I / log_vec
+    DG = divide(gain_vector, log_vec)
+    DI = divide(I, log_vec)
     # cumulate
-    DCG = np.cumsum(DG)
-    DCI = np.cumsum(DI)
+    DCG = cumsum(DG)
+    DCI = cumsum(DI)
     # finish
-    nDCG = DCG / DCI
+    nDCG = divide(DCG, DCI)
     return nDCG

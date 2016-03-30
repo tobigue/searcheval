@@ -92,7 +92,7 @@ class MetricsTests(unittest.TestCase):
         gain_vector = [1, 1, 0, 0, 0]
         ideal_gain_vector = [1, 1, 0, 0, 0]
         nDCG_vector = sm.nDCG_vector(gain_vector, ideal_gain_vector)
-        self.assertEqual(list(nDCG_vector), [1.0, 1.0, 1.0, 1.0, 1.0])
+        self.assertEqual(nDCG_vector, [1.0, 1.0, 1.0, 1.0, 1.0])
 
 
 if __name__ == '__main__':
