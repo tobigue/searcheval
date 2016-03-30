@@ -2,7 +2,7 @@
 searcheval
 ==========
 
-Library implementing metrics and tools for the evaluation of search results (rankings).
+Library implementing metrics and tools for the evaluation of search results (rankings) such as precison, recall and nDCG.
 
 
 Tests
