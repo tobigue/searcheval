@@ -6,7 +6,7 @@ from searcheval.helpers import cumsum, divide
 try:
     from itertools import izip as zip
     range = xrange
-except NameError:
+except (NameError, ImportError):
     pass
 
 

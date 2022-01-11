@@ -4,7 +4,7 @@ from __future__ import division
 try:
     from itertools import izip as zip
     range = xrange
-except NameError:
+except (NameError, ImportError):
     pass
 
 
