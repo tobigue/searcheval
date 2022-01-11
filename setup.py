@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='searcheval',
-    version='0.2.1',
+    version='0.2.2',
     author='Tobias Guenther',
     author_email='searcheval@tobigue.de',
     packages=['searcheval', 'searcheval.test'],
